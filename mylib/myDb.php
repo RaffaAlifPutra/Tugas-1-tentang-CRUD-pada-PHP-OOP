@@ -39,8 +39,14 @@ Class MyDb {
         $query = $this->db->prepare("DELETE FROM data_warga where id=?");
  
         $query->bindParam(1, $id_warga);
- 
+
         $query->execute();
+        // if ($query->execute()) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        
         return $query->rowCount();
     }
    
