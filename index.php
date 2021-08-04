@@ -30,8 +30,10 @@ if(isset($_POST['daftar'])){
 
     if($querysimpan==TRUE){
         $pesansimpan="Data Tersimpan Ke Database";
+        header("Location:index.php?pesansimpan=$pesansimpan");
     }else{
         $pesansimpan="Data Gagal Simpan Ke Database";
+        header("Location:index.php?pesansimpan=$pesansimpan");
     }
 }
 }
@@ -39,8 +41,10 @@ if(isset($_GET['hapus'])){
     //echo "Data dengan ID :".$_GET['hapus']."  Akan di hapus";
     $idwarga=$_GET['hapus'];
     $queryhapus = $Db->delete($idwarga);
+
     if($queryhapus==TRUE){
         $pesanhapus= "Data Berhasil di hapus";
+        header("Location:index.php?pesanhapus=$pesanhapus");
     }else{
         $pesanhapus ="Data Gagal Hapus";
     }
@@ -53,23 +57,28 @@ if(isset($_GET['hapus'])){
         <a href="form-daftar.php" class='btn btn-success'>Tambah Data Warga</a>
     </div>
     <?php 
-    if(isset($_POST['daftar'])){
-    if(isset($pesansimpan)){
-
+    // if(isset($_POST['daftar'])){
+        $pesansimpan = (isset($_GET['pesansimpan']) && trim($_GET['pesansimpan'])!=='');
+    if ($pesansimpan) {
+        $pesansimpan = trim($_GET['pesansimpan']);
        ?>
         <div class="alert alert-success"><?php echo $pesansimpan; ?></div>
         <?php 
     }
-    }
+
+    // }
     ?>
 
 <?php 
-    if(isset($_GET['hapus'])){
-       ?>
+    // if(isset($_GET['hapus'])){
+        $pesanhapus = (isset($_GET['pesanhapus']) && trim($_GET['pesanhapus'])!=='' );
+        if($pesanhapus){
+            $pesanhapus= "Data Berhasil di hapus";
+            ?>
         <div class="alert alert-danger"><?php echo $pesanhapus; ?></div>
         <?php 
     }
-    
+    // }
     ?>
         <table class="table table-bordered" border=1>
         <tr>
